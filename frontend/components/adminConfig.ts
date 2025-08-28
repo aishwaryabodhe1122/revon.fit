@@ -1,0 +1,1 @@
+export const ADMIN_KEY = process.env.NEXT_PUBLIC_ADMIN_KEY || '';\n
