@@ -5,7 +5,7 @@ export default function AdminLayout({ children, title }: { children: React.React
     <div>
       <nav className="navbar navbar-expand-lg sticky-top">
         <div className="container">
-          <Link className="navbar-brand" href="/admin">Admin • Revon.Fit</Link>
+          <Link className="navbar-brand" href="/admin">Admin • Revvon.Fit</Link>
           <div className="collapse navbar-collapse show">
             <ul className="navbar-nav ms-auto gap-3">
               <li className="nav-item"><Link className="nav-link" href="/admin/contacts">Contacts</Link></li>

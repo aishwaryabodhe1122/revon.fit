@@ -8,7 +8,7 @@ from email_util import send_email
 from auth import issue_otp, verify_otp_and_issue_token, is_authorized_identifier, normalize_identifier
 from store import contacts_create, contacts_list, contacts_delete, blogs_create, blogs_list, services_list, services_create, services_update, services_delete, create_subscription, subscriptions_list, subscription_delete
 
-app = FastAPI(title="Revon.Fit API", version="2.0.0")
+app = FastAPI(title="Revvon.Fit API", version="2.0.0")
 
 # Enhanced CORS configuration
 origins = [
@@ -124,8 +124,8 @@ async def subscribe(payload: Dict[str, str] = Body(...)):
         try:
             send_email(
                 email,
-                "Subscription Confirmed - Revon.Fit",
-                f"Thank you for subscribing to Revon.Fit!\n\n"
+                "Subscription Confirmed - Revvon.Fit",
+                f"Thank you for subscribing to Revvon.Fit!\n\n"
                 f"We'll keep you updated with our latest news and offers.\n\n"
                 f"If this wasn't you, please ignore this email."
             )

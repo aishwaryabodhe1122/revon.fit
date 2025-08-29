@@ -1,5 +1,5 @@
 
-# Revon.Fit — Premium Fitness & Nutrition (Full-Stack)
+# Revvon.Fit — Premium Fitness & Nutrition (Full-Stack)
 
 Dark, luxurious Next.js frontend + FastAPI backend with OTP-protected Admin dashboard.
 
