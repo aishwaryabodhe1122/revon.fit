@@ -88,8 +88,19 @@ else:
         summary: str
         details: str
 
+    class Subscription(SQLModel, table=True):
+        id: Optional[int] = Field(default=None, primary_key=True)
+        email: str
+        created_at: datetime = Field(default_factory=datetime.utcnow)
+        is_active: bool = Field(default=True)
+
     def init_sql():
-        SQLModel.metadata.create_all(engine)
+        SQLModel.metadata.create_all(engine, tables=[
+            Contact.__table__,
+            Blog.__table__,
+            Service.__table__,
+            Subscription.__table__
+        ])
 
     init_sql()
 
@@ -193,5 +204,37 @@ else:
             if not obj:
                 return False
             s.delete(obj)
+            s.commit()
+            return True
+
+    def create_subscription(email: str) -> Dict[str, Any]:
+        with Session(engine) as s:
+            existing = s.exec(select(Subscription).where(Subscription.email == email)).first()
+            if existing:
+                return {"status": "exists", "message": "Email already subscribed"}
+            
+            subscription = Subscription(email=email)
+            s.add(subscription)
+            s.commit()
+            s.refresh(subscription)
+            
+            return {"status": "success", "id": subscription.id}
+
+    def subscriptions_list() -> List[Dict[str, Any]]:
+        with Session(engine) as s:
+            subs = s.exec(select(Subscription)).all()
+            return [{
+                "id": sub.id,
+                "email": sub.email,
+                "created_at": sub.created_at.isoformat(),
+                "is_active": sub.is_active
+            } for sub in subs]
+
+    def subscription_delete(id: int) -> bool:
+        with Session(engine) as s:
+            sub = s.get(Subscription, id)
+            if not sub:
+                return False
+            s.delete(sub)
             s.commit()
             return True
