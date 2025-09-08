@@ -141,3 +141,9 @@ async def subscribe(payload: Dict[str, str] = Body(...)):
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="An error occurred while processing your subscription"
         )
+
+@app.post("/api/auth/logout")
+def logout():
+    # In a production environment, you might want to add the token to a blacklist
+    # For now, we'll just return success and let the frontend handle token removal
+    return {"status": "success", "message": "Successfully logged out"}
